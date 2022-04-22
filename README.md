@@ -1,1 +1,1 @@
-# HonoursProject-reharmonisationGAN
+# Update readme when code is finished
