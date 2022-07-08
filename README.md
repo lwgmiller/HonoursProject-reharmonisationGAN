@@ -6,4 +6,4 @@
 
 [![Releases](https://img.shields.io/github/release/lwgmiller/HonoursProject-reharmonisationGAN/all.svg?style=flat-square)](https://github.com/lwgmiller/HonoursProject-reharmonisationGAN/releases)
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/lwgmiller/HonoursProject-reharmonisationGAN/CI/develop?style=flat-square)
+![GitHub Workflow Status (develop)](https://img.shields.io/github/workflow/status/lwgmiller/HonoursProject-reharmonisationGAN/CI/develop?style=flat-square)
