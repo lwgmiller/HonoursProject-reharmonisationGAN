@@ -1,3 +1,6 @@
+import numpy as np
+
+
 # Data
 n_tracks = 4  # number of tracks
 n_pitches = 83  # number of pitches
@@ -14,13 +17,10 @@ measure_resolution = 4 * beat_resolution
 tempo_array = np.full((4 * 4 * measure_resolution, 1), tempo)
 
 # Training
-batch_size = 64
+batch_size = 16
 latent_dim = 128
-n_steps = 5000
+n_steps = 28500
 
 # Sampling
 sample_interval = 10  # interval to run the sampler (in step)
 n_samples = 4
-
-#Directories
-!mkdir midiDataset
