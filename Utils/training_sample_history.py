@@ -11,10 +11,10 @@ def Show_History(history_samples: dict):
 		print(f"Step={step}")
 		samples = history_samples[step].transpose(1, 0, 2, 3).reshape(settings.n_tracks, -1, (settings.n_pitches+1))
 		tracks = []
-		for idx, (program, is_drum, track_name) in enumerate(zip(programs, is_drums, track_names)):
+		for idx, (settings.program, settings.is_drum, settings.track_name) in enumerate(zip(settings.programs, settings.is_drums, settings.track_names)):
 			pianoroll = np.pad(
 				samples[idx] > 0.5,
-				((0, 0), (lowest_pitch, 128 - lowest_pitch - (n_pitches+1)))
+				((0, 0), (settings.lowest_pitch, 128 - settings.lowest_pitch - (settings.n_pitches+1)))
 			)
 			tracks.append(
 				pypianoroll.BinaryTrack(
@@ -25,12 +25,12 @@ def Show_History(history_samples: dict):
 				)
 			)
 		
-		m = Multitrack(tracks=tracks, tempo=tempo_array, resolution=beat_resolution)
+		m = Multitrack(tracks=tracks, tempo=settings.tempo_array, resolution=settings.beat_resolution)
 
 		m.write(os.path.join(train_out_dir, 'midiforstep %s.mid' % step))
 		
 		m.binarize()
-		m.set_resolution(beat_resolution)
+		m.set_resolution(settings.beat_resolution)
 
 		axs = m.plot()
 		for ax in axs:

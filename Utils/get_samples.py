@@ -1,6 +1,8 @@
 import pypianoroll
 import numpy as np
-import tqdm
+
+
+from tqdm import tqdm
 
 
 import settings
@@ -8,7 +10,7 @@ import settings
 def Get_Samples(data: list):
 
   dataS = []
-  for multitrack in data:
+  for multitrack in tqdm(data):
     
     multitrack.binarize()
       # Downsample the pianorolls (shape: n_timesteps x n_pitches)
