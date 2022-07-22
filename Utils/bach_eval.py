@@ -1,3 +1,7 @@
+from music21 import *
+
+
+
 
 def Beat_Harmonised_Check(trk: stream):
 
@@ -69,12 +73,12 @@ def Consecutive_intervals(trk: stream):
 
     trackCombos = []
 
-    sA = sopAlt.chordify(addPartIdAsGroup=True)
-    sT = sopTen.chordify(addPartIdAsGroup=True)
-    sB = sopBass.chordify(addPartIdAsGroup=True)
-    aT = altTen.chordify(addPartIdAsGroup=True)
-    aB = altBass.chordify(addPartIdAsGroup=True)
-    tB = tenBass.chordify(addPartIdAsGroup=True)
+    sA = sopAlt.chordify()
+    sT = sopTen.chordify()
+    sB = sopBass.chordify()
+    aT = altTen.chordify()
+    aB = altBass.chordify()
+    tB = tenBass.chordify()
 
 
     trackCombos.append(sA)
@@ -220,25 +224,61 @@ def Voice_Ranges(trk: stream):
     aBroken = 0
     tBroken = 0
     bBroken = 0
+    voiceChords = 0
 
     for n in s.recurse().notes:
 
-        if n.pitch.midi > 81 or n.pitch.midi < 60:
+        if n.isChord == True:
 
-            print("Pitch %s is out of the standard Soprano voice range!" % (n.nameWithOctave))
+            print("%s voice contains a chord!" % s.partName)
+            print()
 
-            sBroken = sBroken+1
+            voiceChords = voiceChords + 1
+
+            for p in n.notes:
+            
+                if p.pitch.midi > 81 or p.pitch.midi < 60:
+
+                    print("Pitch %s is out of the standard Soprano voice range!" % (p.nameWithOctave))
+
+                    sBroken = sBroken+1
+
+        elif n.isNote == True:
+        
+            if n.pitch.midi > 81 or n.pitch.midi < 60:
+
+                print("Pitch %s is out of the standard Soprano voice range!" % (n.nameWithOctave))
+
+                sBroken = sBroken+1
+            
 
         else:
             continue
     
     for n in a.recurse().notes:
 
-        if n.pitch.midi > 76 or n.pitch.midi < 55:
+        if n.isChord == True:
 
-            print("Pitch %s is out of the standard Alto voice range!" % (n.nameWithOctave))
+            print("%s voice contains a chord!" % a.partName)
+            print()
 
-            aBroken = aBroken+1
+            voiceChords = voiceChords + 1
+
+            for p in n.notes:
+                
+                if p.pitch.midi > 76 or p.pitch.midi < 55:
+
+                    print("Pitch %s is out of the standard Alto voice range!" % (p.nameWithOctave))
+
+                    aBroken = aBroken+1
+
+        elif n.isNote == True:
+            
+            if n.pitch.midi > 76 or n.pitch.midi < 55:
+
+                print("Pitch %s is out of the standard Alto voice range!" % (n.nameWithOctave))
+
+                aBroken = aBroken+1
 
 
         else:
@@ -247,12 +287,28 @@ def Voice_Ranges(trk: stream):
     for n in t.recurse().notes:
 
 
-        if n.pitch.midi > 69 or n.pitch.midi < 48:
+        if n.isChord == True:
 
+            print("%s voice contains a chord!" % t.partName)
+            print()
 
-            print("Pitch %s is out of the standard Tenor voice range!" % (n.nameWithOctave))
+            voiceChords = voiceChords + 1
 
-            tBroken = tBroken+1
+            for p in n.notes:
+                
+                if p.pitch.midi > 69 or p.pitch.midi < 48:
+
+                    print("Pitch %s is out of the standard Tenor voice range!" % (p.nameWithOctave))
+
+                    tBroken = tBroken+1
+
+        elif n.isNote == True:
+            
+            if n.pitch.midi > 69 or n.pitch.midi < 48:
+
+                print("Pitch %s is out of the standard Tenor voice range!" % (n.nameWithOctave))
+
+                tBroken = tBroken+1
 
 
         else:
@@ -261,17 +317,34 @@ def Voice_Ranges(trk: stream):
     
     for n in b.recurse().notes:
 
-        if n.pitch.midi > 64 or n.pitch.midi < 41:
+        if n.isChord == True:
 
-            print("Pitch %s is out of the standard Bass voice range!" % (n.nameWithOctave))
+            print("%s voice contains a chord!" % b.partName)
+            print()
 
-            bBroken = bBroken+1
+            voiceChords = voiceChords + 1
+
+            for p in n.notes:
+                
+                if p.pitch.midi > 64 or p.pitch.midi < 41:
+
+                    print("Pitch %s is out of the standard Tenor voice range!" % (p.nameWithOctave))
+
+                    bBroken = bBroken+1
+
+        elif n.isNote == True:
+            
+            if n.pitch.midi > 64 or n.pitch.midi < 41:
+
+                print("Pitch %s is out of the standard Tenor voice range!" % (n.nameWithOctave))
+
+                bBroken = bBroken+1
 
 
         else:
             continue
     
-    return sBroken, aBroken, tBroken, bBroken
+    return sBroken, aBroken, tBroken, bBroken, voiceChords
 
     
 

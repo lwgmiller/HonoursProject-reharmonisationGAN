@@ -1,10 +1,21 @@
+import os, os.path, shutil
+import numpy as np
+import music21
+
+from music21 import *
+
+import settings
 
 class Evaluate():
 
-    def __init__(self, path: str):
+    def __init__(
+        self,
+        path: str,
+        n_samples: int = settings.n_samples):
 
         self.piece_signature_vector = []
 
+        self.n_samples = n_samples
 
         trk = music21.converter.parse(path)
 
@@ -32,7 +43,7 @@ class Evaluate():
         count = len(trk.recurse().notes)
 
 
-        return count, count / trk.quarterLength * n_samples
+        return count, count / trk.quarterLength * self.n_samples
 
 
     def Occupation_Rate(self, trk: stream):
@@ -52,7 +63,7 @@ class Evaluate():
             else:
                 pass
 
-        return occ_rate / (trk.quarterLength * n_samples)
+        return occ_rate / (trk.quarterLength * self.n_samples)
 
 
 
@@ -100,7 +111,7 @@ class Evaluate():
         mean = sum(mnotes) / len(mnotes)
         std_dev = np.std(mnotes)
 
-        return max_note / trk.quarterLength * n_samples, min_note / trk.quarterLength * n_samples, mean / trk.quarterLength * n_samples, std_dev / trk.quarterLength * n_samples
+        return max_note / trk.quarterLength * self.n_samples, min_note / trk.quarterLength * self.n_samples, mean / trk.quarterLength * self.n_samples, std_dev / trk.quarterLength * self.n_samples
 
 
 
@@ -130,7 +141,7 @@ class Evaluate():
         inv_mean = sum(intrval) / len(intrval)
         inv_std_dev = np.std(intrval)
 
-        return inv_max / trk.quarterLength * n_samples, inv_min / trk.quarterLength * n_samples, inv_mean / trk.quarterLength * n_samples, inv_std_dev / trk.quarterLength * n_samples
+        return inv_max / trk.quarterLength * self.n_samples, inv_min / trk.quarterLength * self.n_samples, inv_mean / trk.quarterLength * self.n_samples, inv_std_dev / trk.quarterLength * self.n_samples
 
 
     def Note_Duration(self, trk: stream):
