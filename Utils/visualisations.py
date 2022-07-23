@@ -1,8 +1,11 @@
 
 import seaborn as sns
+import matplotlib
 import pypianoroll
 import scipy
 import pandas as pd
+
+from pypianoroll import Multitrack
 from scipy.signal import savgol_filter
 from scipy import stats
 
