@@ -1,6 +1,6 @@
-
+import os, os.path, shutil
 import seaborn as sns
-import matplotlib
+import matplotlib.pyplot as plt
 import pypianoroll
 import scipy
 import pandas as pd
@@ -28,9 +28,8 @@ def Plot_Pianoroll(multitrack: Multitrack):
                 ax.axvline(x - 0.5, color='k', linestyle='-', linewidth=1)
     plt.show()
 
-#Plot_Pianoroll(m)
 
-def Plot_Loss_Logs(G_loss, D_loss, figSize=(15, 5)):
+def Plot_Loss_Logs(G_loss: list, D_loss: list, train_out_dir_p: str, figSize=(15, 5)):
 
     plt.ion()
     sns.set()
@@ -64,5 +63,3 @@ def Plot_Mahalonobis_Distance(dataOne: list, dataTwo: list = [], dataThree: list
 
 
     plt.show()
-
-Plot_Mahalonobis_Distance(y, x, z)

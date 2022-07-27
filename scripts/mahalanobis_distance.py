@@ -181,9 +181,9 @@ class Evaluate():
 
         mEvalVector = np.transpose(mEvalVector)
 
-        covM = np.cov(mEvalVector, bias = False)
+        covM = np.cov(mEvalVector.astype(float), bias = False)
 
-        invCovM = np.linalg.inv(covM)
+        invCovM = np.linalg.pinv(covM)
 
         #np.set_printoptions(suppress= True)
 
