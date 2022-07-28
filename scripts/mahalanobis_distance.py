@@ -173,7 +173,7 @@ class Evaluate():
             
             mEvalVector.append(Evaluate(fE).piece_signature_vector)
 
-        mEvalVector = np.array(mEvalVector)
+        mEvalVector = np.array(mEvalVector, dtype='float64')
 
         m = np.mean(mEvalVector, axis=0)
 
@@ -190,6 +190,6 @@ class Evaluate():
         tem = np.dot(xMm, invCovM)
         tem2 = np.dot(tem, np.transpose(xMm))
 
-        mD = np.reshape(np.sqrt(tem2), -1)
+        mD = np.reshape(np.sqrt(tem2[0]), -1)
 
         return mD

@@ -1,4 +1,5 @@
 import os, os.path, shutil
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pypianoroll
@@ -36,8 +37,8 @@ def Plot_Loss_Logs(G_loss: list, D_loss: list, train_out_dir_p: str, figSize=(15
     plt.figure(figsize=figSize)
     plt.plot(D_loss, alpha=0.5, label='D_loss')
     plt.plot(G_loss, alpha=0.5, label='G_loss')
-    plt.plot(savgol_filter(D_loss, 10, 3))
-    plt.plot(savgol_filter(G_loss, 10, 3))
+    plt.plot(savgol_filter(D_loss, 53, 3))
+    plt.plot(savgol_filter(G_loss, 53, 3))
     plt.legend(loc='lower right', fontsize='medium')
     plt.xlabel('Iterations (Sampled every 10 iterations)', fontsize='x-large')
     plt.ylabel('Losses', fontsize='x-large')
@@ -52,13 +53,13 @@ def Plot_Mahalonobis_Distance(dataOne: list, dataTwo: list = [], dataThree: list
     plt.ion()
     sns.set()
     plt.figure(figsize=(15, 5))
-    sns.distplot(dataOne, label='random set')
-    sns.distplot(dataTwo, label='ordered set')
-    sns.distplot(dataThree, label='more samples set')
-    sns.distplot(dataFour, label = 'best generation')
+    sns.distplot(dataOne, label='Bach Benckmark')
+    #sns.distplot(dataTwo, label='ordered set')
+    #sns.distplot(dataThree, label='more samples set')
+    #sns.distplot(dataFour, label = 'best generation')
     plt.legend(loc='upper right')
     plt.xlabel('Distance', fontsize='large')
-    plt.ylabel('Number of Pieces', fontsize='large')
+    plt.ylabel('Probability Density', fontsize='large')
     plt.title('Mahalonobis Distance', fontsize='xx-large')
 
 

@@ -17,9 +17,9 @@ measure_resolution = 4 * beat_resolution
 tempo_array = np.full((4 * 4 * measure_resolution, 1), tempo)
 
 # Training
-batch_size = 16
+batch_size = 64
 latent_dim = 128
-n_steps = 1000
+n_steps = 20000
 
 # Sampling
 sample_interval = 10  # interval to run the sampler (in step)
