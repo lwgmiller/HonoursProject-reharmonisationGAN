@@ -1,0 +1,28 @@
+beats to be harmonised: 29.333333333333332 
+beats harmonised: 28.12 
+beats not harmonised: 1.2133333333333334
+
+p fifths: 0.7066666666666667 
+p octaves: 0.41333333333333333
+
+look at track 36 for eval
+
+illegalCount = 0.4 
+Soprano = {'Perfect Unison': 1.9864864864864864, 'Minor Second': 6.283783783783784, 'Major Second': 13.85135135135135, 'Minor Third': 1.2027027027027026, 'Major Third': 0.8108108108108109, 'Perfect Fourth': 1.6216216216216217, 'Diminished Fifth': 0.013513513513513514, 'Perfect Fifth': 0.44594594594594594, 'Minor Sixth': 0.06756756756756757, 'Major Sixth': 0.0, 'Minor Seventh': 0.0, 'Major Seventh': 0.0, 'Perfect Octave': 0.02702702702702703, 'Minor Ninth': 0.0} 
+alto = {'Perfect Unison': 2.472972972972973, 'Minor Second': 7.621621621621622, 'Major Second': 12.067567567567568, 'Minor Third': 1.0135135135135136, 'Major Third': 1.2297297297297298, 'Perfect Fourth': 1.8783783783783783, 'Diminished Fifth': 0.0, 'Perfect Fifth': 0.5945945945945946, 'Minor Sixth': 0.04054054054054054, 'Major Sixth': 0.10810810810810811, 'Minor Seventh': 0.0, 'Major Seventh': 0.0, 'Perfect Octave': 0.08108108108108109, 'Minor Ninth': 0.0} 
+tenor = {'Perfect Unison': 2.2162162162162162, 'Minor Second': 6.986486486486487, 'Major Second': 12.31081081081081, 'Minor Third': 1.2972972972972974, 'Major Third': 1.1216216216216217, 'Perfect Fourth': 2.581081081081081, 'Diminished Fifth': 0.06756756756756757, 'Perfect Fifth': 1.0810810810810811, 'Minor Sixth': 0.21621621621621623, 'Major Sixth': 0.04054054054054054, 'Minor Seventh': 0.013513513513513514, 'Major Seventh': 0.0, 'Perfect Octave': 0.16216216216216217, 'Minor Ninth': 0.0} 
+bass = {'Perfect Unison': 1.2432432432432432, 'Minor Second': 7.581081081081081, 'Major Second': 13.621621621621621, 'Minor Third': 1.3243243243243243, 'Major Third': 1.1756756756756757, 'Perfect Fourth': 4.081081081081081, 'Diminished Fifth': 0.17567567567567569, 'Perfect Fifth': 3.0945945945945947, 'Minor Sixth': 0.08108108108108109, 'Major Sixth': 0.12162162162162163, 'Minor Seventh': 0.10810810810810811, 'Major Seventh': 0.02702702702702703, 'Perfect Octave': 1.2162162162162162, 'Minor Ninth': 0.0}
+
+Voice ranges:
+
+soprano = 0.0 
+Alto = 0.0 
+tenor = 0.013333333333333334 
+bass = 0.16
+
+Chords = {'major triad': 13.364864864864865, 'minor triad': 6.175675675675675, 'major seventh chord': 0.24324324324324326, 'minor seventh chord': 0.9864864864864865, 'dominant seventh chord': 1.027027027027027, 'diminished triad': 0.6621621621621622}
+
+Positions = {'I': 4.581081081081081, 'ii': 1.9594594594594594, 'iii': 0.5945945945945946, 'IV': 1.2567567567567568, 'V': 2.945945945945946, 'vi': 1.837837837837838, 'Vii': 0.0, 'i': 4.0675675675675675, 'III': 2.027027027027027, 'iv': 1.2567567567567568, 'v': 0.6351351351351351, 'VI': 0.8108108108108109, 'VII': 1.6486486486486487}
+
+perfect = 0.6 
+plagual = 0.08
