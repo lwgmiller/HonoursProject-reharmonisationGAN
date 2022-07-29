@@ -24,3 +24,6 @@ n_steps = 20000
 # Sampling
 sample_interval = 10  # interval to run the sampler (in step)
 n_samples = 4
+
+
+#This is a scripted version of the settings code provided in the original notebook code.

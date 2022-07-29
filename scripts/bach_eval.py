@@ -112,21 +112,14 @@ def Consecutive_intervals(trk: stream):
         pre = str
         chordPrev = chord.Chord()
 
-        for c in i.recurse().notes:
-
-            #print(c.notes)
-            
+        for c in i.recurse().notes:            
 
             if len(c) == 2: 
-     
-                #print(c)
-                #print(chordPrev)
  
-                intrval = interval.Interval(c.notes[0], c.notes[1]) #c.annotateIntervals(stripSpecifiers=False, returnList=True) 
+                intrval = interval.Interval(c.notes[0], c.notes[1])
                 intrval = intrval.semiSimpleNiceName
 
-            
-                
+				#Check for consecutive fifth
                 if intrval == 'Perfect Fifth' and pre == 'Perfect Fifth':
 
                     if c.notes[0].nameWithOctave == chordPrev.notes[0].nameWithOctave and c.notes[1].nameWithOctave == chordPrev.notes[1].nameWithOctave:
@@ -140,8 +133,10 @@ def Consecutive_intervals(trk: stream):
                         pre = intrval
                         chordPrev = c
 
+				#Checks for consecutive octave
                 if intrval == 'Perfect Octave' and pre == 'Perfect Octave':
 
+					#Checks to make sure the pitches change while remaining a consecutive 0ctave
                     if c.notes[0].nameWithOctave == chordPrev.notes[0].nameWithOctave and c.notes[1].nameWithOctave == chordPrev.notes[1].nameWithOctave:
                         
                         continue
@@ -153,19 +148,20 @@ def Consecutive_intervals(trk: stream):
                         chordPrev = c
 
                 else:
+				#Increments the prvious interval
                     pre = intrval
                     chordPrev = c
     
             elif len(c) > 2:
-
-                print("ERROR! the number of notes at a timestep should not be greater than the number of voices.") # unit test chord greater than 2. also test fifths and octaves at the start/end of pieces
+			
+			# error printed if there are more notes in a timestep than voices
+                print("ERROR! the number of notes at a timestep should not be greater than the number of voices.") 
                 continue
 
             elif len(c) < 2:
                 continue
         
 
-            #print(intrval)
     print()
     print("Consecutive fifths: %s" % (parallelFifths))
     print("Consecutive octaves: %s" % (parallelOctaves))
@@ -173,17 +169,17 @@ def Consecutive_intervals(trk: stream):
 
     return parallelFifths, parallelOctaves
 
-def Voice_Leading(trk: stream): #NEED TO TAKE AVERAGE NUMBER OF INTERVALS FOR ALL BACH PIECES
+#Function to conduct voice leading checks.
+def Voice_Leading(trk: stream): 
 
     z = []
     illegalCount = 0
     trackIntervals = {}
     
-
+	#Creates the list of intervals in the voice.
     for semitones in range(14):
         tempInt = interval.Interval(semitones)
         z.append(tempInt.niceName)
-        #print(semitones, tempInt.niceName)
 
 
     for part in trk:
@@ -191,6 +187,8 @@ def Voice_Leading(trk: stream): #NEED TO TAKE AVERAGE NUMBER OF INTERVALS FOR AL
         dict = {}
 
         intervals = []
+		
+		#Defines the illegal intervals to be checked
         illegalIntervals = ['Diminished Fifth', 'Major Seventh', 'Minor Seventh']
 
         print()
@@ -200,7 +198,8 @@ def Voice_Leading(trk: stream): #NEED TO TAKE AVERAGE NUMBER OF INTERVALS FOR AL
 
             intv = interval.Interval(n, n.next())
             intervals.append(intv.niceName)
-
+			
+			#Checks for illegal intervals
             for x in illegalIntervals:
                 if intv.niceName == x:
 
@@ -212,7 +211,8 @@ def Voice_Leading(trk: stream): #NEED TO TAKE AVERAGE NUMBER OF INTERVALS FOR AL
         l = Counter()
         for i in z:
             l[i] = intervals.count(i)
-            
+			
+        #Apps the interval name and count to a dictionary
         for key, value in l.items():
             print(key, value)
 
@@ -222,6 +222,7 @@ def Voice_Leading(trk: stream): #NEED TO TAKE AVERAGE NUMBER OF INTERVALS FOR AL
 
     return illegalCount, trackIntervals    
 
+#Function to discover any voice range errors, as well as the existence of multiple notes in a single voice.
 def Voice_Ranges(trk: stream):
 
     s = trk.parts[0]
@@ -235,6 +236,7 @@ def Voice_Ranges(trk: stream):
     bBroken = 0
     voiceChords = 0
 
+	#Check for soprano voice
     for n in s.recurse().notes:
 
         if n.isChord == True:
@@ -263,7 +265,7 @@ def Voice_Ranges(trk: stream):
 
         else:
             continue
-    
+    #Check for alto voice
     for n in a.recurse().notes:
 
         if n.isChord == True:
@@ -292,7 +294,7 @@ def Voice_Ranges(trk: stream):
 
         else:
             continue
-
+	#Check for tenor voice
     for n in t.recurse().notes:
 
 
@@ -323,7 +325,7 @@ def Voice_Ranges(trk: stream):
         else:
             continue
 
-    
+	#Check for bass voice
     for n in b.recurse().notes:
 
         if n.isChord == True:
@@ -357,7 +359,7 @@ def Voice_Ranges(trk: stream):
 
     
 
-
+#Function to perform the chord analysis
 def Chord_Analysis(trk:stream):
 
     chordList = []
@@ -371,13 +373,16 @@ def Chord_Analysis(trk:stream):
 
     f = trk.analyze('key')
 
+	#Defining the typical chords found in a chorale.
     typicalChords = ['major triad', 'minor triad', 'major seventh chord', 'minor seventh chord', 'dominant seventh chord', 'diminished triad']
 
+	#Defining the major chord positions
     majorKeyChordPositions = ['I', 'ii', 'iii', 'IV', 'V', 'vi', 'Vii']
 
+	#Defining the minor chord positions
     minorKeyChordPositions = ['i', 'ii', 'III', 'iv', 'v', 'VI', 'VII']
 
-
+	#Tracks are turned into chords
     chords = trk.chordify()
 
 
@@ -393,9 +398,6 @@ def Chord_Analysis(trk:stream):
             rn = roman.romanNumeralFromChord(c, f)
 
             rnList.append(rn.romanNumeral)
-
-            #c.addLyric(str(rn.figure))
-
 
     
     tC = Counter()
@@ -414,6 +416,7 @@ def Chord_Analysis(trk:stream):
 
     print()
 
+	#if the key is major, use major chord positions
     if f.mode == 'major':
 
         cP = Counter()
@@ -433,6 +436,7 @@ def Chord_Analysis(trk:stream):
 
         print()
 
+	#If the key is minor, use the minor chord positions
     elif f.mode =='minor':
 
         mCP = Counter()
@@ -455,44 +459,40 @@ def Chord_Analysis(trk:stream):
     else:
         print("something is wrong! the key of this piece is neither major nor minor!")
     
-    #trk.insert(0, chords)
 
-    
-    #trk.measures(0, 8).show()
 
     print(chordDict)
+	print()
     print(rnDict)
 
     return chordDict, rnDict
 
-
+#Function to perform cadence check
 def Cadences(trk: stream):
     
-    plagualCount = 0
+    plagalCount = 0
     perfectCount = 0
     chords = trk.chordify()
 
+	#Find the key of the piece
     f = trk.analyze('key')
 
     rnPre = roman.RomanNumeral()
 
     for c in chords.recurse().notes:
 
-        #c.closedPosition(forceOctave=4, inPlace=True)
-
         rn = roman.romanNumeralFromChord(c, f)
 
-        #c.addLyric(str(rn.figure))
-
-
+		#Check for plagal cadences
         if (rn.figure == 'I' and rnPre.figure == 'IV') or (rn.figure == 'i' and rnPre.figure == 'iv'):
 
-            print("Plagual cadence in measure %s" % (c.measureNumber))
+            print("Plagal cadence in measure %s" % (c.measureNumber))
 
-            plagualCount = plagualCount+1
+            plagalCount = plagalCount+1
 
             rnPre = rn
 
+		#Check for perfect cadences
         elif (rn.figure == 'I' and rnPre.figure == 'V') or (rn.figure == 'i' and rnPre.figure == 'v'):
 
             print("Perfect cadence found in measure %s" % (c.measureNumber))
@@ -503,4 +503,4 @@ def Cadences(trk: stream):
         else:
             rnPre = rn
     
-    return perfectCount, plagualCount
+    return perfectCount, plagalCount

@@ -13,7 +13,7 @@ from typing import Tuple
 import settings
 
 """Midi dataset."""
-
+#Method used to process dataset, to set shape, and remove empty bars.   source code --> https://github.com/akanametov/MuseGAN
 class MidiDataset(Dataset):
     """MidiDataset.
     Parameters
@@ -102,7 +102,7 @@ class MidiDataset(Dataset):
         
 
 from pypianoroll.track import BinaryTrack
-def save_pianoroll_as_midi(dataset,
+def save_pianoroll_as_multitrack(dataset,
                   programs=settings.programs,
                   track_names=settings.track_names,
                   is_drums=settings.is_drums,
@@ -116,12 +116,10 @@ def save_pianoroll_as_midi(dataset,
 
       pianoroll = piece > 0
 
-      #print(pianoroll.shape)
 
     # Reshape batched pianoroll array to a single pianoroll array
       pianoroll_ = pianoroll.reshape((-1, pianoroll.shape[1], pianoroll.shape[2]))
 
-      #print(pianoroll_.shape)
 
     # Create the tracks   
       tracks = []
