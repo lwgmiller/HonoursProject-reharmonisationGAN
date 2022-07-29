@@ -4,7 +4,7 @@ from collections import Counter
 
 
 
-
+# Function for Beat Harmonisation check
 def Beat_Harmonised_Check(trk: stream):
 
     i = 0
@@ -16,13 +16,15 @@ def Beat_Harmonised_Check(trk: stream):
     t = trk.asTimespans(classList=(note.Note,), flatten=True)
 
     
-
+	# Iterates through "verticalities" (timesteps containing all track information)
     for v in t.iterateVerticalities():
 
         if v.offset.is_integer():
 
+			# Only specifies a pitch in a timestep if the pitch began in that timestep.
             c = v.startTimespans
 
+			#Checks to see if a note has been harmonised or not
             if len(c) > 1:
 
                 harmonised = harmonised + 1
@@ -51,8 +53,10 @@ def Beat_Harmonised_Check(trk: stream):
 
     return toBeHarm, harmonised, notHarmonised
 
+#Function to calculate consecutive errors
 def Consecutive_intervals(trk: stream):
 
+	#Turns music21 track information into streams
     sopAlt = stream.Score(id='sopAlt')
     sopTen = stream.Score(id='sopTen')
     sopBass = stream.Score(id='sopBass')
@@ -60,6 +64,7 @@ def Consecutive_intervals(trk: stream):
     altBass = stream.Score(id='altBass')
     tenBass = stream.Score(id='tenBass')
 
+	#splits tracks into variables with one other voice.
     sopAlt.insert(0, trk.parts[0])
     sopAlt.insert(0, trk.parts[1])
     sopTen.insert(0, trk.parts[0])
@@ -75,6 +80,7 @@ def Consecutive_intervals(trk: stream):
 
     trackCombos = []
 
+	#Converts every voice comb to only contain chords
     sA = sopAlt.chordify()
     sT = sopTen.chordify()
     sB = sopBass.chordify()
@@ -102,6 +108,7 @@ def Consecutive_intervals(trk: stream):
     
     for i in trackCombos:
 
+		#defines the previous chord
         pre = str
         chordPrev = chord.Chord()
 

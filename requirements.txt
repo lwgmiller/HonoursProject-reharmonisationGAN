@@ -1,0 +1,15 @@
+Requirements:
+
+pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
+pip install os, os.path, shutil
+pip install zipfile
+pip install random
+pip install json
+pip install pickle
+pip install numpy as np
+pip install matplotlib.pyplot as plt
+pip install music21
+pip install pypianoroll
+pip install pretty_midi
+pip install seaborn as sns
+pip install sys
