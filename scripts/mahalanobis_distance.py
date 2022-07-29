@@ -17,6 +17,7 @@ class Evaluate():
 
         self.n_samples = n_samples
 
+		#Converts the file path to a music21 stream
         trk = music21.converter.parse(path)
 
         maxRange, minRange, meanRange, stdRange = self.Pitch_Range_Descriptors(trk)
@@ -37,7 +38,7 @@ class Evaluate():
         
 
 
-
+	#Function to calculate number of notes descriptor
     def Number_of_notes(self, trk: stream):
 
         count = len(trk.recurse().notes)
@@ -46,6 +47,7 @@ class Evaluate():
         return count, count / trk.quarterLength * self.n_samples
 
 
+	Function to calculate Occupation rate descriptor
     def Occupation_Rate(self, trk: stream):
 
         occ_rate = 0
@@ -66,7 +68,7 @@ class Evaluate():
         return occ_rate / (trk.quarterLength * self.n_samples)
 
 
-
+	#Function for calculating polyphonic rate
     def Polyphonic_Rate(self, trk: stream):
 
         count = 0
@@ -88,7 +90,7 @@ class Evaluate():
         return count / self.Number_of_notes(trk)[0]
 
 
-
+	#Function for calculating pitch range descriptors
     def Pitch_Range_Descriptors(self, trk: stream):
 
         mnotes = []
@@ -114,7 +116,7 @@ class Evaluate():
         return max_note / trk.quarterLength * self.n_samples, min_note / trk.quarterLength * self.n_samples, mean / trk.quarterLength * self.n_samples, std_dev / trk.quarterLength * self.n_samples
 
 
-
+	#Function for calculating pitch interval range
     def Pitch_Interval_Range(self, trk: stream):
 
         intrval = []
@@ -143,7 +145,7 @@ class Evaluate():
 
         return inv_max / trk.quarterLength * self.n_samples, inv_min / trk.quarterLength * self.n_samples, inv_mean / trk.quarterLength * self.n_samples, inv_std_dev / trk.quarterLength * self.n_samples
 
-
+	#function for calculating note duration
     def Note_Duration(self, trk: stream):
 
         durations = []
@@ -160,13 +162,15 @@ class Evaluate():
         return  dur_max, dur_min, dur_mean, dur_std_dev
 
         
-
+	#Function to calculate Mahalanobis distance. This is the only function that should be called in the class.
     def Mahalanobis_Distance(f, dataset_eval_midi):
 
+		#Calls the rest of the class internally to gather piece signature vector for evaluated piece
         x = np.array([Evaluate(f).piece_signature_vector])
 
         mEvalVector = []
 
+		#Gets main data set and calculates the piece signature vectors.
         for file in os.listdir(dataset_eval_midi):
 
             fE = os.path.join(dataset_eval_midi, file)
@@ -184,8 +188,6 @@ class Evaluate():
         covM = np.cov(mEvalVector.astype(float), bias = False)
 
         invCovM = np.linalg.pinv(covM)
-
-        #np.set_printoptions(suppress= True)
 
         tem = np.dot(xMm, invCovM)
         tem2 = np.dot(tem, np.transpose(xMm))
